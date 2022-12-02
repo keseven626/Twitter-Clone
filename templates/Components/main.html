@@ -1,0 +1,127 @@
+<style>
+.tweets-container{
+    display: flex;
+    background-color: white;
+    box-shadow: 3px 3px 20px rgba(210, 207, 207, 0.261);
+    border-radius: 6px;
+    transition: .4s ease-in-out;
+    padding: 20px 25px;
+    margin: 0px 30px 20px 0px;
+    transition: all .4s ease-in-out;
+}
+.tweets-container:hover{
+    box-shadow: 3px 3px 20px rgb(210, 207, 207);
+    transform: scale(1.02);
+}
+.tweet-author{
+    font-size: 14px;
+}
+.tweet-author a:hover{
+    text-decoration: underline;
+}
+.tweet-content{
+    padding: 10px 2px;
+    width: 450px;
+}
+.tweet-image{
+    height: 230px;
+    width: 450px;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+.tweet-image img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+.tweet-user-image{
+    height: 60px;
+    width: 60px;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+.tweet-user-image img{
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+}
+.tweet-btn{
+    display: flex;
+    column-gap: 20px;
+}
+Button{
+    padding: 10px;
+    border: none;
+    background-color: white;
+}
+span{
+    font-family: 'monospace', sans-serif;
+}
+</style>
+{% load static %}
+{% for tweet in tweet %}
+<div class="tweets-container">
+    {% if tweet.user.profile.image %}
+    <div class="tweet-user-image">   
+        <img src="{{tweet.user.profile.image.url}}" alt="">      
+    </div>
+    {% else %}
+    <div class="tweet-user-image"> 
+        <img src="{% static 'assset/1638654341892.png' %}" alt="tweet" />
+    </div>
+    {% endif %}
+    <div class="tweet-container">
+        <div class="tweet-author">
+            <a href="{% url 'profile' tweet.user.id %}">
+                {% if tweet.user != user %}
+                <b> <span>{{tweet.user.first_name}} {{tweet.user.last_name}}</span> </b>
+                {% else %}
+                    <b>You </b>
+                {% endif %}
+            </a>
+            {% if tweet.user == user %}
+                {% if tweet.is_retweet %}
+                    <span class="text-muted">retweeted</span>
+                        <a href="{% url 'profile' tweet.parent.user.id %}">
+                        <b>@{{tweet.parent.user}} </b>  
+                        </a>
+                    {{tweet.date_created | timesince}}
+                {% else %}
+                    @{{tweet.user}}  {{tweet.date_created | timesince}}
+                {% endif %}
+            {% else %}
+            {% if tweet.is_retweet %}
+                    <span class="text-muted">retweeted</span>
+                        <a href="{% url 'profile' tweet.parent.user.id %}">
+                        <b>@{{tweet.parent.user}} </b>  
+                        </a>
+                    {{tweet.date_created | timesince}}
+                {% else %}
+                     @{{tweet.user}}   {{tweet.date_created | timesince}}
+                {% endif %}
+            
+            {% endif %}
+        </div>
+        {% if tweet.image %}
+            <div class="tweet-image"> 
+                <img src="{{tweet.image.url}}" alt="">   
+            </div>
+        {% endif %}
+        <a href="{% url 'getTweet' tweet.id %}">
+            <div class="tweet-content">
+                {{tweet.tweet | safe | truncatechars:250 }}
+            </div> 
+        </a>
+            <div class="tweet-btn">
+                <Button class="">{{tweet.likes.count}} <i class="fas fa-heart"></i></Button>
+                {% if user.is_authenticated%}
+                <Button class="">{{tweet_comment.count}} <i class="fas fa-message"></i></Button>
+                {% if user != tweet.user %}
+                <a href="{% url 're-tweet' tweet.id %}"><Button class=""><i class="fas fa-share"></i></Button></a>
+                {% endif %}
+                {% endif %}
+            </div> 
+       
+    </div>
+</div>
+{% endfor %}

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'profile/CompleteProfile.css' %}">
+
+<div class="add-profile-container">
+    <a href="{% url 'home'%}">Home</a>
+    <div class="header">
+        <h2>Complete Your Profile</h2>
+    </div>  
+        <form action="" method="post" enctype="multipart/form-data" class="form-group">   
+            {% csrf_token %}    
+            <form method="POST" enctype="multipart/form-data">
+                <div class="personal-information">
+                    <div class="personal-header">
+                        Others Information
+                    </div>
+                    <div class="form-input">
+                            {{form}}
+                        </div>      
+                    </div>
+                    <div class="personal-information">
+                        <div class="personal-header">
+                            Personal Information
+                        </div>
+                        <div class="form-input">
+                            {{UserForm}}
+                        </div>
+                    </div>
+                    <input type="submit" class="btn-success" value="Confirm">   
+            </form>
+
+        </form>
+        <div>
+            <div class="profile-btns">
+                {% if user.is_authenticated %}
+                <a href="{% url 'reset-user-password'%}"><Button class="btn-warning">Reset Account Password</Button></a>
+                <Button class="btn-error">Delete Account</Button>
+                {% endif %}
+            <div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

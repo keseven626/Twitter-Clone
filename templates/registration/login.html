@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block tittle %}
+        <title>Login To Your Account</title>
+{% endblock tittle%}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'login/styles.css' %}">
+
+    <div class="login-form">
+        <div class="form-content">
+            <h3 class="login-header">Login To Your Twitter Account</h3>
+            <form action="" method="post" class="form-group">
+                {% csrf_token %}
+                <div class="form-input">
+                    <input type="text" class="form-control" name="username" placeholder="@Username"/>
+                </div>
+                <div class="form-input">
+                    <input type="password" class="form-control" name="password" placeholder="Password"/>
+                </div>
+                <div class="form-input">
+                    <input type="checkbox" />
+                    <span>Remember Me</span>
+                </div>
+                <div>
+                    <a href="{% url 'reset-user-password' %}"><p class="forgetpassword">FORGET PASSWORD?</p></a>
+                </div>
+                <div><button type="submit" class="btn-success">LOGIN</button></div>         
+            </form>          
+        </div>
+    </div>  
+{% endblock content %}

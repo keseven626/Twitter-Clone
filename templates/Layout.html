@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+<style>
+    .containe{
+        display: flex;
+        height: 120vh;
+    }
+</style>
+{% load static %}
+<link rel="stylesheet" href="{% static 'font/css/all.css' %}">  
+<link rel="stylesheet" href="{% static 'home/home.css' %}">  
+    <div class="containe">
+        <!-- Left content -->
+        {% block left_content %}
+            {% include './Components/HomeLeftBar.html' %}
+        {% endblock left_content%}
+
+        <!-- Middle content -->
+        {% block middle_content %}   
+        {% endblock middle_content%}
+
+        <!-- Right content -->
+        {% block Right_content %}
+            {% include './Components/HomeRightBar.html' %}
+        {% endblock Right_content%}
+    </div>
+
+        <!-- footer content -->
+        {% block footer %}
+        {% endblock footer %}
+{% endblock content %}

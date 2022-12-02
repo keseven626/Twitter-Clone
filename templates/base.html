@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block tittle %}
+        <title>Document</title>
+    {% endblock tittle%}
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            font-family: Roboto;
+            color: grey;
+            font-weight: 200;
+            height: 120%;
+        }
+        a{
+            text-decoration: none;
+            color: grey;
+        }
+        .middle{
+            flex: 3;
+            background-color: rgba(245, 245, 245, 0.146);
+            padding: 6px 40px;
+        }
+        .btn-success{
+            background-color: rgb(34, 213, 34);
+            color: white;
+            border-radius: 4px;
+            padding: 10px 15px;
+            outline: none;
+            border: none;
+            text-align: right;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn-success:hover{
+            background-color: rgb(28, 175, 28);
+        }
+        .btn-warning{
+            background-color: rgba(110, 110, 4, 0.797);
+            color: white;
+            border-radius: 4px;
+            padding: 10px 15px;
+            outline: none;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn-warning:hover{
+            background-color: rgba(92, 92, 14, 0.797);
+        }
+        .btn-error{
+            background-color: rgba(241, 55, 55, 0.797);
+            color: white;
+            border-radius: 4px;
+            padding: 10px 15px;
+            outline: none;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn-error:hover{
+            background-color: rgba(211, 39, 39, 0.797);
+        }
+        .btn-info{
+            background-color: rgb(98, 98, 215);
+            color: white;
+            border-radius: 4px;
+            padding: 10px 15px;
+            outline: none;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn-info:hover{
+            background-color: rgb(56, 56, 174);
+        }
+        .message-container{
+            position: absolute;
+            padding: 14px 35px;
+            background-color:rgb(44, 180, 44);
+            color: white;
+            width: 200px;
+            z-index: 30;
+            right: 20px;
+            top: 20px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Nav-Bar -->
+    <!-- {% include 'navbar.html' %}  -->
+
+    <!-- Backend Messages -->
+    {% if messages.values %}
+            {% for message in messages %}
+            <div class="message-container">
+                <p>{{message}}</p>
+            </div>
+            {% endfor %}
+    {% endif %}
+
+    <!-- Layout Component -->
+    {% block content %}
+    {% endblock content %}
+    
+</body>
+</html>

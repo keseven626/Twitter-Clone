@@ -1,0 +1,15 @@
+.containe{
+    display: flex;
+}
+.left{
+    height: 120vh;
+    flex: .8;
+}
+.middle{
+    flex: 2;
+    background-color: rgba(245, 245, 245, 0.146);
+    padding: 6px 20px;
+}
+.right{
+    flex: 1;
+}

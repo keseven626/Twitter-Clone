@@ -1,0 +1,32 @@
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 20px;
+    list-style-type: none;
+    background: linear-gradient(to right, rgba(54, 54, 97, 0.47) 60%, rgb(12, 12, 87));
+    position: fixed;
+    top:0;
+    min-width: 100%;
+}
+.navbar .brand{
+    font-size: 30px;
+    font-family: 'Lucida', sans-serif;
+    color: white;
+}
+.nav-links{
+    display: flex;
+    justify-content: center;
+}
+.nav-links li{
+    margin: 0px 8px;
+    font-size: 14px;
+    border: 2px solid white;
+    border-radius: 7px;
+    color: white;
+    padding: 6px 15px;
+}
+.nav-links li:hover{
+    color: whitesmoke;
+    background-color: rgba(128, 128, 128, 0.096);
+}

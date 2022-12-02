@@ -1,0 +1,158 @@
+{% extends 'layout.html' %}
+{% block tittle %}
+        <title>Profile | {{ tweet_user.username }}</title>
+{% endblock tittle%}
+
+{% block middle_content %}
+<style>
+    .bio{
+        font-size: 14px;
+        width: 70%;
+        padding-left: 10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .about-user{
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow:
+                     2px 2px 10px rgb(211, 208, 208);
+    }
+    .about-user-container{
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+    }
+    .about-user p{
+        margin-bottom: 10px
+    }
+    .about-user span{
+        font-size: 13px;
+        font-family: cursive;
+        color: black;
+        font-weight: 300;
+    }
+    #profile-btn{
+        text-align: right;
+        position: absolute;
+        right: 10px;
+        bottom: -15px;
+        background: linear-gradient(to right, lightblue, rgb(22, 22, 45));
+        transition: 1s ease-in-out;
+    }
+    #profile-btn:hover{
+        background: linear-gradient(to left, lightblue, rgb(22, 22, 45));
+        transition: 1s ease-in-out;
+    }
+    .user-tweets{
+        margin-bottom: 20px;
+        padding: 20px;
+        box-shadow: 3px 3px 10px rgb(223, 220, 220);
+    }
+    .tweet-image{
+        height: 300px;
+        width: 500px;
+        margin: 10px 0px;
+        margin-left: 10px;
+    }
+    .tweet-image img{
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+    .profile-nav ul{
+        display: flex;
+        padding: 10px 0px;
+        box-shadow: 3px 3px 5px rgb(223, 220, 220);
+        margin-bottom: 20px;
+    }
+    .active{
+        font-weight: 600;
+        text-decoration: underline;
+    }
+</style>
+{% load static %}
+<link rel="stylesheet" href="{% static 'profile/profile.css' %}">  
+
+    <div class="middle"> 
+        <div class="profile-header">
+            <p>{{tweet_user.username}}</p>
+            <!-- <p>{{follower}}</p> -->
+        </div>
+        <div class="cover">
+            <img src="{% static 'assset/1638654341892.png' %}" alt="tweet" class="cover-picture" />
+            {% if profile.image %}
+            <img src="{{profile.image.url}}" alt="tweet" class="profile-picture"/>
+            {% else %}
+            <img src="{% static 'assset/1638654341892.png' %}" alt="tweet" class="profile-picture" />
+            {% endif %}
+            {% if user == tweet_user %}
+            <a href="{% url 'edit-profile'%}"><button class="btn-success" id="profile-btn">Edit-profile</button></a>
+            {% endif %}
+        </div>
+        
+        <div class="about-user">
+            <div class="about-user-container">
+                <div>
+                    <h3>About {{tweet_user.first_name}} {{tweet_user.last_name}}</h3>
+                    <p class="bio"> {{profile.Bio}}<p>
+                    <p><i class="fas fa-box-open"></i> E-mail: <span>{{tweet_user.email}}</span></p>
+                    <p><i class="fas fa-hand"></i> Job: <span>{{profile.job}}</span></p>
+                    <p><i class="fas fa-clock"></i> Created: <span>{{tweet_user.date_joined | timesince}}</span></p>
+                    <p>{{profile.follower.count}} Followers</p>
+                </div>
+                <div>
+                    {% if user.is_authenticated %}
+                    {% if isFollowing %}
+                    <a href="{% url 'un-follow' tweet_user.id %}">
+                        <button class="btn-error">Un-follow</button></a>
+                    {% else %}
+                        {% if user != tweet_user%}
+                        <a href="{% url 'follow' tweet_user.id %}">
+                        <button class="btn-info">Follow</button></a>
+                        {% endif %}
+                    {% endif %}
+                    {% endif %}
+                </div>
+            </div> 
+            
+        </div>
+       
+        <div class="profile-nav">
+            <ul>
+                <li class="active">{{user_tweet.count}} Tweet
+                </li>
+                <li>Last Read Tweet</li>
+                <li>Favorite</li>
+            </ul>
+        </div>
+        <div>
+            {% for tweet in user_tweet %}
+            <div class="user-tweets">
+                <div class="tweet-user">
+                    {% if tweet.is_retweet %}
+                        {% if tweet.user == user %}
+                            You retweeted @{{ tweet.parent.user }}
+                        {% else %}
+                            {{ tweet.user }} retweeted @{{ tweet.parent.user }}
+                        {% endif %}
+                    {% else %}
+                        {% if tweet.user == user %}
+                            You
+                        {% else %}
+                            @{{ tweet.user }}
+                        {% endif %}
+                    {% endif %}
+                </div>
+                {% if tweet.image %}
+                <div class="tweet-image"> 
+                    <img src="{{tweet.image.url}}" alt="">    
+                </div>
+                {% endif %}
+                {{tweet.tweet | safe | truncatechars:250}}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock middle_content%}
+

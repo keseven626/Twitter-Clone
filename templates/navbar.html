@@ -1,0 +1,17 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'navStyle.css' %}">
+
+<div class="navbar">
+    <a href="{% url 'home' %}"><div class='brand'>
+        Twitter
+    </div></a>
+    <div class="nav-links">
+        {% if not user.is_authenticated %}
+        <a href="{% url 'login' %}"><li>Login</li></a>
+        <a href="{% url 'user-registration' %}"><li>Sign-up</li></a>
+        {% endif %}
+        {% if user.is_authenticated %}
+        <a href="{% url 'logout' %}"> <li>Logout</li></a>
+        {% endif %}
+    </div>
+</div>

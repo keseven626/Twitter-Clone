@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block tittle %}
+        <title>Create an Account</title>
+{% endblock tittle%}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'login/styles.css' %}">
+
+    <div class="login-form">
+        <div class="form-content">
+            <h3 class="login-header">Create a Twitter Account</h3>
+            <form action="" method="post" class="form-group">
+                {% csrf_token %}
+                <div class="form-input">
+                    <input type="text" class="form-control" name="username" placeholder="Username"/>
+                </div>
+                <div class="form-input">
+                    <input type="text" class="form-control"name="password1" placeholder="Password"/>
+                </div>
+                <div class="form-input">
+                    <input type="text" class="form-control"name="password2" placeholder="Confirm Password"/>
+                </div>
+                <div class="form-input">
+                    <input type="checkbox"placeholder="Password"/>
+                    <span>I accept the <a href="" style="color: green">Terms & Condition</a></span>
+                </div>
+                <div>
+                    <input type="checkbox" placeholder="Password"/>
+                    <span>Remember Me</span>
+                </div>
+                <div><button type="submit" class="btn-success">LOGIN</button></div>         
+            </form>
+        </div>
+    </div>  
+{% endblock content %}

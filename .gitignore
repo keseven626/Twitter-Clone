@@ -1,0 +1,11 @@
+virenv/
+
+#DataBase
+db.sqlite3
+
+#media
+media
+
+#migrations
+/PostBackend/migrations/
+/account/migrations/
